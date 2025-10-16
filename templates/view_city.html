@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City and Food Destinations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #fef9ef; margin: 0; }
+        header { background: #ef233c; color: white; padding: 20px; text-align: center; }
+        .spot-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 40px; }
+        .spot-card { background: white; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; transition: 0.3s; }
+        .spot-card:hover { transform: scale(1.03); }
+        .spot-card img { width: 100%; height: 220px; object-fit: cover; }
+        .spot-info { padding: 15px; }
+        h2, p { margin: 0; }
+        .back { display: block; text-align: center; margin: 30px; color: #ef233c; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+<header><h1>🍴 City and Food Adventures</h1></header>
+
+<div class="spot-container">
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='colon.jpg') }}">
+        <div class="spot-info">
+            <h2>Colon Street</h2>
+            <p>Oldest street in the Philippines filled with local stores and flavors.</p>
+        </div>
+    </div>
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='lechon.jpg') }}">
+        <div class="spot-info">
+            <h2>Carcar City</h2>
+            <p>Try the world-famous Cebu Lechon and traditional delicacies.</p>
+        </div>
+    </div>
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='templeleah.jpg') }}">
+        <div class="spot-info">
+            <h2>Temple of Leah</h2>
+            <p>Experience Roman-inspired architecture and stunning city views.</p>
+        </div>
+    </div>
+</div>
+
+<a href="{{ url_for('home') }}" class="back">← Back to Categories</a>
+</body>
+</html>

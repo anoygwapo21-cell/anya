@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg">
+    <header class="header">
+        <h1>Travel Explorer</h1>
+        <nav>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+    </header>
+
+    <div class="center-text">
+        <h2>Discover the Beauty of the Cebu</h2>
+        <p>Explore breathtaking destinations and cultural wonders.</p>
+    </div>
+</body>
+</html>

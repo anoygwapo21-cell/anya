@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ spot.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="header">
+    <a href="{{ url_for('category', category_id=spot.category_id) }}">← Back</a>
+    <h1>{{ spot.name }}</h1>
+</header>
+
+<div class="spot-details">
+    <img src="{{ url_for('static', filename=spot.image) }}" alt="{{ spot.name }}">
+    <h2>{{ spot.name }}</h2>
+    <p><strong>Location:</strong> {{ spot.location }}</p>
+    <p>{{ spot.description }}</p>
+</div>
+</body>
+</html>

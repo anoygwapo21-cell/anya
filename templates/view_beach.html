@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beaches in Cebu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f3f7fa;
+            margin: 0;
+        }
+        header {
+            background-color: #0077b6;
+            color: white;
+            padding: 15px 50px;
+            text-align: center;
+        }
+        .spot-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        .spot-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .spot-card:hover {
+            transform: scale(1.03);
+        }
+        .spot-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .spot-info {
+            padding: 15px;
+        }
+        h2, p {
+            margin: 0;
+        }
+        .back {
+            display: block;
+            text-align: center;
+            margin: 30px;
+            color: #0077b6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🏝 Best Beach Spots in Cebu</h1>
+</header>
+
+<div class="spot-container">
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='bantayan.jpg') }}">
+        <div class="spot-info">
+            <h2>Bantayan Island</h2>
+            <p>Experience white sandy shores and laid-back island vibes.</p>
+        </div>
+    </div>
+
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='malapascua.jpg') }}">
+        <div class="spot-info">
+            <h2>Malapascua Island</h2>
+            <p>Home of the thresher sharks — perfect for diving lovers!</p>
+        </div>
+    </div>
+
+    <div class="spot-card">
+        <img src="{{ url_for('static', filename='moalboal.jpg') }}">
+        <div class="spot-info">
+            <h2>Moalboal</h2>
+            <p>Snorkel with sardine runs and vibrant coral reefs.</p>
+        </div>
+    </div>
+</div>
+
+<a href="{{ url_for('home') }}" class="back">← Back to Categories</a>
+</body>
+</html>

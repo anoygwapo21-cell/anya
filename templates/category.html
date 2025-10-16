@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category }} - Cebu Travel Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg" style="background-image: url('{{ url_for('static', filename='anya1.jpg') }}');">
+<header class="header">
+    <h1>{{ category }}</h1>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<div class="sub-header">
+    <h2>{{ category }}</h2>
+    <p>Discover beautiful destinations and unique experiences in Cebu.</p>
+</div>
+
+<div class="spots-container">
+    {% if spots %}
+        {% for spot in spots %}
+        <div class="spot-card">
+            <img src="{{ url_for('static', filename=spot['image']) }}" alt="{{ spot['name'] }}">
+            <div class="spot-info">
+                <h3>{{ spot['name'] }}</h3>
+                <p><strong>Location:</strong> {{ spot['location'] }}</p>
+                <p>{{ spot['description'] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-data">No spots found for this category.</p>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cultural and Historical Sites</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg" style="background-image: url('{{ url_for('static', filename='images/cultural.jpg') }}');">
+    <header class="header">
+        <h1>Cultural & Historical Sites of Cebu</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Back to Home</a>
+        </nav>
+    </header>
+
+    <div class="spots">
+        <div class="spot-card">
+            <img src="{{ url_for('static', filename='images/magellan.jpg') }}">
+            <h3>Magellan’s Cross</h3>
+            <p>A historical landmark marking the arrival of Christianity in Cebu.</p>
+        </div>
+
+        <div class="spot-card">
+            <img src="{{ url_for('static', filename='images/santonino.jpg') }}">
+            <h3>Basilica del Santo Niño</h3>
+            <p>The oldest Roman Catholic church in the Philippines.</p>
+        </div>
+
+        <div class="spot-card">
+            <img src="{{ url_for('static', filename='images/fortsanpedro.jpg') }}">
+            <h3>Fort San Pedro</h3>
+            <p>A Spanish-era military defense structure in Cebu City.</p>
+        </div>
+    </div>
+</body>
+</html>

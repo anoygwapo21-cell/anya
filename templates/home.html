@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cebu Travel Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg" style="background-image: url('{{ url_for('static', filename='anya1.jpg') }}');">
+<header class="header">
+    <h1>Welcome, {{ user }}</h1>
+    <nav><a href="{{ url_for('logout') }}">Logout</a></nav>
+</header>
+
+<div class="sub-header">
+    <h2>Explore Cebu Province</h2>
+    <p>Discover amazing destinations and unique experiences across Cebu.</p>
+</div>
+
+<div class="category-container">
+    {% for category in categories %}
+    <div class="category-card">
+        {% if category == "Cultural and Historical Sites" %}
+            <img src="{{ url_for('static', filename='cultural.jpg') }}">
+            <p>Discover Magellan’s Cross, Basilica del Santo Niño, and more.</p>
+        {% elif category == "City and Food Destinations" %}
+            <img src="{{ url_for('static', filename='city.jpg') }}">
+            <p>Experience the city life, street markets, and delicious lechon!</p>
+        {% elif category == "Falls" %}
+            <img src="{{ url_for('static', filename='falls.jpg') }}">
+            <p>Swim and relax at the famous Kawasan Falls in Badian.</p>
+        {% elif category == "Beach" %}
+            <img src="{{ url_for('static', filename='beach.jpg') }}">
+            <p>Enjoy the beauty of Bantayan and Malapascua’s crystal waters.</p>
+        {% endif %}
+        <h3>{{ category }}</h3>
+        <a href="{{ url_for('category', name=category) }}" class="btn">View Spots</a>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
