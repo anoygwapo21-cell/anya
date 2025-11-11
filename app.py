@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
 import os
 
@@ -49,8 +49,8 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# --- USERS ---
-users = {"test": "1234"}
+users = {"admin": "admin123", "test": "1234"}
+
 
 # --- ROUTES ---
 @app.route('/')
@@ -64,17 +64,31 @@ def login():
         pw = request.form['password']
         if user in users and users[user] == pw:
             session['user'] = user
-            return redirect(url_for('home'))
-        return "Invalid credentials"
+            flash(f"Welcome, {user}! You have successfully logged in.", "success")
+
+            # Redirect admin to admin dashboard
+            if user == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('home'))
+        flash("Invalid username or password.", "danger")
+        return redirect(url_for('login'))
     return render_template('login.html')
 
+
+
+# --- REGISTER ---
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         user = request.form['username']
         pw = request.form['password']
-        users[user] = pw
-        return redirect(url_for('login'))
+        if user in users:
+            flash("Username already exists. Try another one.", "warning")
+        else:
+            users[user] = pw
+            flash("Registration successful! You can now log in.", "success")
+            return redirect(url_for('login'))
     return render_template('register.html')
 
 @app.route('/home')
@@ -83,6 +97,78 @@ def home():
         return redirect(url_for('login'))
     categories = ["Cultural and Historical Sites", "City and Food Destinations", "Falls", "Beach"]
     return render_template('home.html', user=session['user'], categories=categories)
+# --- ADMIN DASHBOARD ---
+@app.route('/admin')
+def admin_dashboard():
+    if 'user' not in session or session['user'] != 'admin':
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    spots = conn.execute('SELECT * FROM spots').fetchall()
+    conn.close()
+    return render_template('admin_dashboard.html', spots=spots)
+
+
+@app.route('/add_spot', methods=['GET', 'POST'])
+def add_spot():
+    if 'user' not in session or session['user'] != 'admin':
+        flash("Access denied.", "danger")
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        category = request.form['category']
+        name = request.form['name']
+        location = request.form['location']
+        description = request.form['description']
+        image = request.form['image']
+
+        conn = get_db_connection()
+        conn.execute(
+            'INSERT INTO spots (category, name, location, description, image) VALUES (?, ?, ?, ?, ?)',
+            (category, name, location, description, image)
+        )
+        conn.commit()
+        conn.close()
+        flash("New tourist spot added successfully!", "success")
+        return redirect(url_for('admin_dashboard'))
+    return render_template('add_spot.html')
+
+
+# --- EDIT SPOT ---
+@app.route('/edit_spot/<int:id>', methods=['GET', 'POST'])
+def edit_spot(id):
+    if 'user' not in session or session['user'] != 'admin':
+        flash("Access denied.", "danger")
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    spot = conn.execute('SELECT * FROM spots WHERE id = ?', (id,)).fetchone()
+
+    if request.method == 'POST':
+        category = request.form['category']
+        name = request.form['name']
+        location = request.form['location']
+        description = request.form['description']
+        image = request.form['image']
+        conn.execute('UPDATE spots SET category=?, name=?, location=?, description=?, image=? WHERE id=?',
+                     (category, name, location, description, image, id))
+        conn.commit()
+        conn.close()
+        flash("Spot updated successfully!", "info")
+        return redirect(url_for('admin_dashboard'))
+    conn.close()
+    return render_template('edit_spot.html', spot=spot)
+
+
+# --- DELETE SPOT ---
+@app.route('/delete_spot/<int:id>')
+def delete_spot(id):
+    if 'user' not in session or session['user'] != 'admin':
+        flash("Access denied.", "danger")
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    conn.execute('DELETE FROM spots WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    flash("Spot deleted successfully!", "warning")
+    return redirect(url_for('admin_dashboard'))
 
 @app.route('/category/<name>')
 def category(name):

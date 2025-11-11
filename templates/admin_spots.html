@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Admin — Manage Tourist Spots</h1>
+  <a href="{{ url_for('admin_spots_new') }}" class="btn">New Spot</a>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Category</th><th>Location</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for s in spots %}
+        <tr>
+          <td>{{ s['id'] }}</td>
+          <td>{{ s['name'] }}</td>
+          <td>{{ s['category'] }}</td>
+          <td>{{ s['location'] }}</td>
+          <td>
+            <a href="{{ url_for('admin_spots_edit', spot_id=s['id']) }}">Edit</a>
+            <form method="post" action="{{ url_for('admin_spots_delete', spot_id=s['id']) }}" style="display:inline">
+              <button type="submit" onclick="return confirm('Delete this spot?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

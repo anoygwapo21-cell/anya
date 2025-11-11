@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="section" style="max-width:980px; margin:20px auto;">
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+      <div style="flex:1 1 360px;">
+        {% if spot.image %}
+          <img src="{{ url_for('static', filename=spot['image']) }}" alt="{{ spot['name'] }}" style="width:100%; border-radius:10px; object-fit:cover; max-height:520px;">
+        {% endif %}
+      </div>
+
+      <div style="flex:1 1 340px; min-width:260px;">
+        <h1 style="margin-top:0; color:var(--accent)">{{ spot['name'] }}</h1>
+        <p style="margin:6px 0 14px; color: rgba(255,255,255,0.92);"><strong>Location:</strong> {{ spot['location'] or 'Unknown' }}</p>
+
+        <div style="background: rgba(255,255,255,0.03); padding:14px; border-radius:10px; color: rgba(255,255,255,0.95);">
+          <p style="line-height:1.6;">{{ spot['description'] }}</p>
+        </div>
+
+        <div style="margin-top:18px;">
+          <a class="btn-outline" href="{{ request.referrer or url_for('category', name=spot['category'] or 'Beach') }}">Back</a>
+          <a class="btn" href="{{ url_for('home') }}" style="margin-left:8px;">Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

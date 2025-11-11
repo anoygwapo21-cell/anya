@@ -21,6 +21,10 @@
                     <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Login</a>
                     <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
                 {% endif %}
+                {% if session.get('user') == 'admin' %}
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning me-2">Admin Dashboard</a>
+{% endif %}
+
             </div>
         </div>
     </header>
