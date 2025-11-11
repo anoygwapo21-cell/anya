@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>New Tourist Spot</h1>
-  <form method="post">
-    <label>Category: <input name="category"></label><br>
-    <label>Name: <input name="name" required></label><br>
-    <label>Location: <input name="location"></label><br>
-    <label>Image filename (in static/): <input name="image"></label><br>
-    <label>Description:<br><textarea name="description" rows="6"></textarea></label><br>
-    <button type="submit">Create</button>
-  </form>
+<div class="d-flex justify-content-center align-items-center animate-in" style="min-height:80vh;">
+  <div class="form-container">
+    <h2 class="mb-4 fw-bold">Add New Tourist Spot</h2>
+    <form method="post">
+      <select name="category" class="form-control mb-3" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="Cultural and Historical Sites">Cultural and Historical Sites</option>
+        <option value="City and Food Destinations">City and Food Destinations</option>
+        <option value="Falls">Falls</option>
+        <option value="Beach">Beach</option>
+      </select>
+      <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
+      <input type="text" name="location" class="form-control mb-3" placeholder="Location" required>
+      <input type="text" name="image" class="form-control mb-3" placeholder="Image filename (in static/)" required>
+      <textarea name="description" class="form-control mb-3" placeholder="Description" rows="4" required></textarea>
+      <button type="submit" class="btn w-100 mb-2">Create</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

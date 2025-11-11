@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cebu Travel Explorer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="bg" style="background-image: url('{{ url_for('static', filename='anya1.jpg') }}');">
-<header class="header">
-    <h1>Welcome, {{ user }}</h1>
-    <nav><a href="{{ url_for('logout') }}">Logout</a></nav>
-</header>
-
-<div class="sub-header">
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height:35vh;">
+  <div class="sub-header">
     <h2>Explore Cebu Province</h2>
     <p>Discover amazing destinations and unique experiences across Cebu.</p>
+  </div>
 </div>
-
-<div class="category-container">
+<div class="category-container justify-content-center">
     {% for category in categories %}
-    <div class="category-card">
+    <div class="category-card mx-auto">
         {% if category == "Cultural and Historical Sites" %}
             <img src="{{ url_for('static', filename='cultural.jpg') }}">
             <p>Discover Magellan’s Cross, Basilica del Santo Niño, and more.</p>
@@ -37,5 +27,4 @@
     </div>
     {% endfor %}
 </div>
-</body>
-</html>
+{% endblock %}

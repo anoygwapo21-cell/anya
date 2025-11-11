@@ -2,91 +2,203 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beaches in Cebu</title>
+    <title>Cebu’s Best Beaches & Islands</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #f3f7fa;
+            font-family: 'Poppins', 'Montserrat', sans-serif;
+            background: url('{{ url_for("static", filename="anya1.jpg") }}') no-repeat center center/cover;
             margin: 0;
+            color: #222;
+            background-attachment: fixed;
         }
-        header {
-            background-color: #0077b6;
-            color: white;
-            padding: 15px 50px;
+        .hero-section {
+            background: rgba(255,255,255,0.10);
             text-align: center;
+            padding: 72px 18px 32px 18px;
+            border-radius: 0 0 34px 34px;
+            backdrop-filter: blur(2.5px);
         }
-        .spot-container {
+        .hero-section h1 {
+            font-size: 2.2em;
+            color: #007b9e;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 16px #c0e8ee66;
+        }
+        .hero-section p {
+            font-size: 1.15em;
+            color: #333;
+            margin-bottom: 0;
+        }
+
+        .spot-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            padding: 40px 6vw 12px 6vw;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .spot-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .beach-card {
+            background: rgba(255,255,255,0.93);
+            border-radius: 22px;
+            box-shadow: 0 4px 24px #0e81be26;
             overflow: hidden;
-            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            min-height: 420px;
+            padding: 0;
+            border: 1.5px solid #f5f7fa;
+            transition: box-shadow .17s, transform .18s;
         }
-        .spot-card:hover {
-            transform: scale(1.03);
+        .beach-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 14px 42px #2edbe68a;
+            border-color: #00bcd4;
         }
-        .spot-card img {
+        .card-image {
             width: 100%;
-            height: 220px;
+            height: 190px;
             object-fit: cover;
-        }
-        .spot-info {
-            padding: 15px;
-        }
-        h2, p {
             margin: 0;
+            border-radius: 22px 22px 0 0;
         }
-        .back {
-            display: block;
-            text-align: center;
-            margin: 30px;
-            color: #0077b6;
+        .card-body {
+            padding: 24px 22px 22px 22px;
+            color: #2e3b51;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+        .card-title {
+            font-size: 1.35em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #00bcd4;
+            line-height: 1.1em;
+        }
+        .card-location {
+            font-size: 0.98em;
+            color: #1d88a1;
+            font-family: 'Montserrat',sans-serif;
+            margin-bottom: 6px;
+        }
+        .card-summary {
+            font-size: 1.02em;
+            color: #343a4d;
+            margin-bottom: 8px;
+        }
+        .card-details-list {
+            list-style: disc inside;
+            color: #15687a;
+            font-size: 0.99em;
+            margin: 0 0 8px 0;
+            padding-left: 12px;
+        }
+        .card-details-list li {
+            margin-bottom: 4px;
+            line-height: 1.5em;
+            font-family: inherit;
+        }
+        .card-tip {
+            background: #e7faff;
+            font-size: 0.97em;
+            color: #1082a1;
+            border-radius: 7px;
+            padding: 10px 16px;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .card-map {
+            display: inline-block;
+            background: #00bcd4;
+            color: white;
             text-decoration: none;
-            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.97em;
+            font-weight: 600;
+            margin-top: 14px;
+            padding: 10px 24px;
+            box-shadow: 0 2px 12px #00bcd426;
+            transition: background 0.18s, color 0.18s;
         }
-        .back:hover {
-            text-decoration: underline;
+        .card-map:hover {
+            background: #15687a;
+            color: #fffde9;
+        }
+        @media (max-width:700px){
+            .spot-list { grid-template-columns: 1fr; padding: 20px 2vw;}
+            .beach-card { min-height: 340px;}
+            .hero-section { padding:32px 2vw 18px 2vw; }
         }
     </style>
 </head>
 <body>
-<header>
-    <h1>🏝 Best Beach Spots in Cebu</h1>
-</header>
+    <section class="hero-section">
+        <h1>Cebu’s Best Beaches & Islands</h1>
+        <p>From powdery white sands to world-class diving—discover Cebu’s coastal gems with local tips!</p>
+    </section>
 
-<div class="spot-container">
-    <div class="spot-card">
-        <img src="{{ url_for('static', filename='bantayan.jpg') }}">
-        <div class="spot-info">
-            <h2>Bantayan Island</h2>
-            <p>Experience white sandy shores and laid-back island vibes.</p>
+    <div class="spot-list">
+
+        <!-- Bantayan Island -->
+        <div class="beach-card">
+            <img class="card-image" src="{{ url_for('static', filename='bantayan.jpg') }}">
+            <div class="card-body">
+                <div class="card-title">Bantayan Island</div>
+                <div class="card-location">North Cebu</div>
+                <div class="card-summary">A classic tropical escape with beaches, biking, seafood, and magical sunsets. Local charm and laid-back vibes await.</div>
+                <ul class="card-details-list">
+                    <li>Sunset at Kota Beach</li>
+                    <li>Island hopping: Virgin Island, Paradise Beach</li>
+                    <li>Try authentic Cebu dried fish (danggit)</li>
+                    <li>Rent a bicycle for town and coast</li>
+                </ul>
+                <div class="card-tip"><b>Tip:</b> Bring cash—ATMs are rare. March–May is best!</div>
+                <a class="card-map" target="_blank" href="https://goo.gl/maps/G3NqzQZ7hBNfsJHw5">View on Map</a>
+            </div>
+        </div>
+
+        <!-- Malapascua Island -->
+        <div class="beach-card">
+            <img class="card-image" src="{{ url_for('static', filename='malapascua.jpg') }}">
+            <div class="card-body">
+                <div class="card-title">Malapascua Island</div>
+                <div class="card-location">Daanbantayan, North Cebu</div>
+                <div class="card-summary">Home to the thresher shark dives, friendly hostels, and coral gardens. Quiet, perfect for beach lovers and scuba divers.</div>
+                <ul class="card-details-list">
+                    <li>Thresher shark diving (Monad Shoal)</li>
+                    <li>Snorkeling and coral gardens</li>
+                    <li>Island-hopping to Kalanggaman</li>
+                </ul>
+                <div class="card-tip"><b>Tip:</b> Limited ATMs. Most activities run April–July.</div>
+                <a class="card-map" target="_blank" href="https://goo.gl/maps/ZtsBDJwf3CrKCpmf6">View on Map</a>
+            </div>
+        </div>
+
+        <!-- Moalboal -->
+        <div class="beach-card">
+            <img class="card-image" src="{{ url_for('static', filename='moalboal.jpg') }}">
+            <div class="card-body">
+                <div class="card-title">Moalboal</div>
+                <div class="card-location">South Cebu</div>
+                <div class="card-summary">Adventure hub famous for snorkeling with sardine runs, turtles, and lively beach bars. Great for solo, family, or group trips.</div>
+                <ul class="card-details-list">
+                    <li>Sardine run snorkeling</li>
+                    <li>Turtle watching at Panagsama Beach</li>
+                    <li>Canyoneering at nearby Kawasan Falls</li>
+                    <li>Chill beach bars, vibrant nightlife</li>
+                </ul>
+                <div class="card-tip"><b>Tip:</b> November–May is the top window. Rent a scooter to explore hidden springs!</div>
+                <a class="card-map" target="_blank" href="https://goo.gl/maps/fkX9ZtMzSnA5C3sE7">View on Map</a>
+            </div>
         </div>
     </div>
-
-    <div class="spot-card">
-        <img src="{{ url_for('static', filename='malapascua.jpg') }}">
-        <div class="spot-info">
-            <h2>Malapascua Island</h2>
-            <p>Home of the thresher sharks — perfect for diving lovers!</p>
-        </div>
-    </div>
-
-    <div class="spot-card">
-        <img src="{{ url_for('static', filename='moalboal.jpg') }}">
-        <div class="spot-info">
-            <h2>Moalboal</h2>
-            <p>Snorkel with sardine runs and vibrant coral reefs.</p>
-        </div>
-    </div>
-</div>
-
-<a href="{{ url_for('home') }}" class="back">← Back to Categories</a>
+    <a href="{{ url_for('home') }}" class="card-map" style="display:block; margin:54px auto 30px auto; text-align:center; width:max-content;"><span style="font-weight:600;">← Back to Categories</span></a>
 </body>
 </html>

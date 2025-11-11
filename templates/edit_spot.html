@@ -1,30 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h2 class="mb-4">Edit Spot</h2>
-    <form method="POST">
+    <h2 class="mb-4">Edit Tourist Spot</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-3">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" class="card p-4 shadow-lg mt-4 bg-light rounded">
         <div class="mb-3">
-            <label class="form-label">Category</label>
+            <label class="form-label"><strong>Category</strong></label>
             <input type="text" name="category" class="form-control" value="{{ spot.category }}" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Name</label>
+            <label class="form-label"><strong>Name</strong></label>
             <input type="text" name="name" class="form-control" value="{{ spot.name }}" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Location</label>
+            <label class="form-label"><strong>Location</strong></label>
             <input type="text" name="location" class="form-control" value="{{ spot.location }}" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" required>{{ spot.description }}</textarea>
+            <label class="form-label"><strong>Description</strong></label>
+            <textarea name="description" class="form-control" rows="3" required>{{ spot.description }}</textarea>
         </div>
         <div class="mb-3">
-            <label class="form-label">Image Filename</label>
+            <label class="form-label"><strong>Image Filename</strong></label>
             <input type="text" name="image" class="form-control" value="{{ spot.image }}" required>
+            <span class="form-text text-muted">Image file should exist in <code>static/</code>.</span>
         </div>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

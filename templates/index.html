@@ -3,22 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <title>Travel Explorer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="bg">
-    <header class="header">
-        <h1>Travel Explorer</h1>
-        <nav>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}">Register</a>
-            <a href="{{ url_for('login') }}">Login (Admin/User)</a>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            background: url("{{ url_for('static', filename='anya1.jpg') }}") no-repeat center center/cover;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background: rgba(0, 25, 42, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+            transition: background 0.3s ease-in-out;
+        }
+
+        header:hover {
+            background: rgba(0, 25, 42, 0.9);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 32px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00faff;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            padding: 0 10%;
+            background: rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 3px 20px rgba(0,0,0,0.4);
+            animation: slideUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-top: 20px;
+            color: #e6f8ff;
+            opacity: 0;
+            animation: fadeIn 2s ease 0.8s forwards;
+        }
+
+        .hero button {
+            margin-top: 40px;
+            padding: 12px 34px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #00d4ff, #3ceeda);
+            color: #00323b;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 2s ease 1.3s forwards;
+        }
+
+        .hero button:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+        }
+
+        @keyframes slideUp {
+            0% {transform: translateY(40px); opacity: 0;}
+            100% {transform: translateY(0); opacity: 1;}
+        }
+
+        @keyframes fadeInUp {
+            0% {transform: translateY(50px); opacity: 0;}
+            100% {transform: translateY(0); opacity: 1;}
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header { padding: 16px 20px; flex-direction: column; gap: 10px; }
+            .hero h2 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            nav a { margin-left: 16px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="bi bi-globe-americas"></i>Tourism Explorer</h1>
+        <nav>
+            <a href="{{ url_for('login') }}"><i class="bi bi-person"></i> Login</a>
+            <a href="{{ url_for('register') }}"><i class="bi bi-person-plus"></i> Register</a>
+            <a href="{{ url_for('login') }}"><i class="bi bi-shield-lock"></i> Admin</a>
         </nav>
     </header>
 
-    <div class="center-text">
-        <h2>Discover the Beauty of the Cebu</h2>
-        <p>Explore breathtaking destinations and cultural wonders.</p>
-    </div>
+    <section class="hero">
+        <h2>Trust Our Experience</h2>
+        <p>Discover the best destinations and cultural wonders in Cebu.</p>
+        <button onclick="window.location.href='{{ url_for('login') }}'">Get Started</button>
+    </section>
 </body>
 </html>

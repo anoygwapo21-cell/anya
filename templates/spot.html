@@ -1,26 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-  <section class="section" style="max-width:980px; margin:20px auto;">
-    <div style="display:flex; gap:20px; flex-wrap:wrap;">
-      <div style="flex:1 1 360px;">
-        {% if spot.image %}
-          <img src="{{ url_for('static', filename=spot['image']) }}" alt="{{ spot['name'] }}" style="width:100%; border-radius:10px; object-fit:cover; max-height:520px;">
-        {% endif %}
+<div class="ta-bg" style="background: url('{{ url_for("static", filename="anya1.jpg") }}') center center/cover fixed; min-height:100vh;">
+  <div class="container py-5" style="max-width:650px;">
+    <div class="ta-card" style="
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 28px #00bcd40a;
+      padding: 0;
+      overflow: hidden;
+      margin-top: 48px;
+      margin-bottom: 48px;
+      border: 1.5px solid #efefef;
+    ">
+      <!-- Image Top -->
+      <div style="width:100%;overflow: hidden; height:260px;">
+        <img src="{{ url_for('static', filename=spot['image']) }}" alt="{{ spot['name'] }}"
+          style="width:100%;height:100%;object-fit:cover;border-radius:20px 20px 0 0;">
       </div>
-
-      <div style="flex:1 1 340px; min-width:260px;">
-        <h1 style="margin-top:0; color:var(--accent)">{{ spot['name'] }}</h1>
-        <p style="margin:6px 0 14px; color: rgba(255,255,255,0.92);"><strong>Location:</strong> {{ spot['location'] or 'Unknown' }}</p>
-
-        <div style="background: rgba(255,255,255,0.03); padding:14px; border-radius:10px; color: rgba(255,255,255,0.95);">
-          <p style="line-height:1.6;">{{ spot['description'] }}</p>
+      <div class="ta-content" style="padding:34px 36px 26px 36px;">
+        <h1 style="font-size:2em;font-family:'Montserrat',sans-serif;color:#00bcd4;margin-bottom:4px;font-weight:700;">
+          {{ spot['name'] }}
+        </h1>
+        <div style="display:flex; align-items:center; gap:9px; margin-bottom:11px;">
+          <span style="background:#e6f7fa;padding:3px 16px;border-radius:8px;color:#15687a;font-size:1em;font-weight:600;">
+            {{ spot['category'] }}
+          </span>
+          <span style="color:#0096c7; font-size:1.15em;">
+            <i class="bi bi-geo-alt-fill"></i> {{ spot['location'] }}
+          </span>
         </div>
-
-        <div style="margin-top:18px;">
-          <a class="btn-outline" href="{{ request.referrer or url_for('category', name=spot['category'] or 'Beach') }}">Back</a>
-          <a class="btn" href="{{ url_for('home') }}" style="margin-left:8px;">Home</a>
+        <div style="font-size:1.10em; color:#333; line-height:1.7; margin-bottom:20px;">
+          {{ spot['description'] }}
+        </div>
+        <!-- Attraction Details (extend via DB) -->
+        <ul style="list-style:none; padding:0; margin:0 0 13px 0;">
+          <li style="margin-bottom:8px;"><i class="bi bi-calendar-check" style="color:#00bcd4;margin-right:8px;"></i><b>Best Season:</b> Peak summer, March–May</li>
+          <li style="margin-bottom:8px;"><i class="bi bi-bus-front" style="color:#00bcd4;margin-right:8px;"></i><b>How to Get There:</b> From Cebu City, bus + local transport</li>
+          <li><i class="bi bi-clock-history" style="color:#00bcd4;margin-right:8px;"></i><b>Suggested Duration:</b> 2–4 hours</li>
+        </ul>
+        <div style="margin-top:20px;">
+          <a class="btn" href="https://www.google.com/maps/search/{{ spot['name'] | urlencode }}" target="_blank"
+            style="background:#00bcd4; color:#fff; text-decoration:none; padding:10px 28px; border-radius:8px; font-weight:600; font-size:1.09em; box-shadow:0 2px 14px #00bcd426; margin-right:9px;">
+            View on Map
+          </a>
+          <a class="btn" href="{{ url_for('category', name=spot['category']) }}"
+            style="background:#15687a; color:#fff; text-decoration:none; padding:10px 22px; border-radius:8px; font-weight:600; font-size:1.05em;">
+            ← Back to {{ spot['category'] }}
+          </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 {% endblock %}
